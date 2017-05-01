@@ -148,7 +148,31 @@ narnia0    narnia1    narnia2    narnia3    narnia4    narnia5    narnia6    nar
 narnia0.c  narnia1.c  narnia2.c  narnia3.c  narnia4.c  narnia5.c  narnia6.c  narnia7.c  narnia8.c
 ~~~~
 
-Bang! Note we had to use little endian notation (expect after our *file* command). Also, *cat -* is an old trick to keep the shell open and not immediately close.
+Bang! Note we had to use little endian notation (expect after our *file* command). Also, *cat -* is an old trick to keep the shell open and not immediately close. In order to concatenate shell commands, we used the parenthesis.
+Last part is to find the path to our flag. We will search everywhere for files containing the string "pass" in its name. Also, we are ignoring all "Permission denied" errors by sending all error messages from stderr to stdout (2>&1) and grepping only those without (-v) "Permission denied".
+
+~~~~
+find / -name "*pass" 2>&1 | grep -v "Permission denied"
+/proc/sys/net/ipv4/vs/cache_bypass
+/etc/krypton_pass
+/etc/semtex_pass
+/etc/behemoth_pass
+/etc/utumno_pass
+/etc/vulnbot_pass
+/etc/natas_pass
+/etc/natas_webpass
+/etc/maze_pass
+/etc/vortex_pass
+/etc/narnia_pass
+/etc/manpage_pass
+/etc/leviathan_pass
+/etc/drifter_pass
+/etc/bandit_pass
+/home/bandit21/.prevpass
+/usr/share/bash-completion/completions/mmsitepass
+~~~~
+
+Cool, passwords for all OverTheWire's games :). Inside /etc/narnia_pass we have our golden pot.
 
 # About peda
 Ok a quick observation here about our tools. When we first sshed to the game we received a message telling us what are our weapons.
@@ -187,12 +211,3 @@ Type "apropos word" to search for commands related to "word"...
 (gdb) source /usr/local/peda/peda.py
 gdb-peda$
 ~~~~
-
-
-
-
-
-
-
-
-
